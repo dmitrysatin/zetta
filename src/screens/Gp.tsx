@@ -223,3 +223,29 @@ export function Appeals() {
     </Sheet>
   )
 }
+
+export function Contacts() {
+  const items = [
+    { icon: 'phone', t: '+7 495 000-00-00', s: 'Круглосуточно, звонок по России бесплатный', img: 'profile-support-call.png' },
+    { icon: 'chat', t: 'Чат с поддержкой', s: 'Ответим в течение 5 минут', to: '/wip?t=Чат' },
+    { icon: 'doc', t: 'dms@zetta.example', s: 'Ответим в течение рабочего дня', img: 'profile-support-mail.png' },
+  ]
+  return (
+    <Sheet title="Контакты" close>
+      <div className="space-y-2.5">
+        {items.map((i) => (
+          <button key={i.t} onClick={() => i.to && navigate(i.to)} className="flex w-full items-center gap-3 rounded-2xl bg-white p-4 text-left shadow-zt-card">
+            <span className="flex h-11 w-11 items-center justify-center rounded-xl bg-zt-mint text-zt-accent"><Icon name={i.icon} /></span>
+            <span className="flex-1">
+              <span className="block text-[15px] font-semibold">{i.t}</span>
+              <span className="block text-[13px] text-zt-text3">{i.s}</span>
+            </span>
+          </button>
+        ))}
+      </div>
+      <div className="mt-4 rounded-2xl bg-zt-pink p-4 text-[14px]">
+        <b>Экстренная помощь</b> — кнопка SOS внизу экрана, вызов скорой по полису.
+      </div>
+    </Sheet>
+  )
+}

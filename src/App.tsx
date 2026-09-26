@@ -9,7 +9,7 @@ import { Activities, ActivityDetail } from './screens/Activities'
 import { Policies, Policy, Program } from './screens/Policy'
 import { Login, Pin, Register } from './screens/Auth'
 import { Go, Start } from './screens/Start'
-import { Appeals, GpDone, GpForm, GpList, GpNew } from './screens/Gp'
+import { Appeals, Contacts, GpDone, GpForm, GpList, GpNew } from './screens/Gp'
 import { BookingClinic, BookingComplaints, BookingConfirm, BookingDoctors, BookingDone, BookingSpecialty, BookingWish, Clinics } from './screens/Booking'
 
 // Экраны с нижней панелью. Остальные — пошаговые сценарии, где панель мешает.
@@ -123,6 +123,9 @@ function Screens() {
       break
     case '/gp/done':
       screen = <GpDone />
+      break
+    case '/contacts':
+      screen = <Contacts />
       break
     case '/appeals':
       screen = <Appeals />
