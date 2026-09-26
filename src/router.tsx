@@ -42,6 +42,8 @@ export function useRoute(): Route {
     const on = () => setRoute(parse())
     window.addEventListener('hashchange', on)
     window.addEventListener('popstate', on)
+    // Дочерний экран мог сменить адрес раньше, чем подписались (прямая ссылка /go) — синхронизируемся
+    on()
     return () => {
       window.removeEventListener('hashchange', on)
       window.removeEventListener('popstate', on)
