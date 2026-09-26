@@ -152,10 +152,11 @@ export const franchise = {
   drugsBalance: 1200,
 }
 
-export function rub(n: number): string {
+// Суммы с копейками, как в прототипе 65apps; short — без копеек для чипов и крупных цифр
+export function rub(n: number, short = false): string {
   return (
     n.toLocaleString('ru-RU', {
-      minimumFractionDigits: Number.isInteger(n) ? 0 : 2,
+      minimumFractionDigits: short && Number.isInteger(n) ? 0 : 2,
       maximumFractionDigits: 2,
     }) + ' ₽'
   )

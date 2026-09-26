@@ -51,9 +51,9 @@ export function Activities() {
           </div>
         </section>
       ))}
-      <div className="mt-6 grid grid-cols-2 gap-2">
+      <div className="mt-6 space-y-2">
         <Button variant="secondary" onClick={() => navigate('/booking')}>Записаться</Button>
-        <Button variant="secondary" onClick={() => navigate('/gp')}>Гарантийное письмо</Button>
+        <Button variant="secondary" onClick={() => navigate('/gp')}>Запросить гарантийное письмо</Button>
       </div>
     </Sheet>
   )
@@ -80,7 +80,7 @@ export function ActivityDetail({ id }: { id: string }) {
       </div>
       <div className="mt-4 space-y-3 rounded-2xl bg-white p-4 shadow-zt-card">
         {[
-          ['clock', a.when],
+          ...(isGp ? [] : [['clock', a.when]]),
           ['pin', a.place],
           ['user', person.name],
         ].map(([icon, text]) => (

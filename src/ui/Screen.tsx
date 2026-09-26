@@ -55,7 +55,7 @@ export function AppHeader() {
           className="flex flex-col items-end rounded-2xl border border-white/60 bg-white/15 px-3 py-1 text-white"
         >
           <span className="text-[10px] leading-tight text-white/85">Франшиза</span>
-          <span className="text-[13px] font-semibold leading-tight">{rub(franchise.balance)}</span>
+          <span className="text-[13px] font-semibold leading-tight">{rub(franchise.balance, true)}</span>
         </button>
       </Note>
     </div>

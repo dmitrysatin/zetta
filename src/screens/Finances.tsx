@@ -24,6 +24,7 @@ export function Franchise() {
   return (
     <Sheet title="Франшиза" close>
       <Note
+        at="out-right"
         what="Первым на экране — «Ваша часть за последние приёмы»: услуги, их стоимость и сумма к оплате. Отсюда же — счёт и все счета."
         finding="Отчёт, тема 1: шестеро из семи искали списания на экране франшизы; «Я бы ожидала, что у меня тут последние списания, история, как в этом банковском» (Ирина, PMI). Рекомендация 1."
       >
@@ -156,6 +157,7 @@ export function Invoice() {
       </div>
       <Note
         className="mt-4"
+        at="out-right"
         what="У каждой строки подпись «Подробнее» и стрелка, раскрытая строка показывает стоимость, вашу часть и застрахованного; номер полиса — в деталях."
         finding="Отчёт, тема 1: сумму за приём показывает только раскрытая строка, четверо раскрыли её лишь после подсказки. Застрахованный в строке — предложение из раздела «Где мнения разошлись». Рекомендация 8."
       >
@@ -165,7 +167,7 @@ export function Invoice() {
               <button onClick={() => setOpen(open === i ? null : i)} className="flex w-full items-center gap-3 px-4 py-3.5 text-left">
                 <span className="min-w-0 flex-1">
                   <span className="block text-[15px] font-medium">{l.service}</span>
-                  <span className="block text-[12.5px] text-zt-text3">{owner.short} · {l.date}</span>
+                  <span className="block text-[12.5px] text-zt-text3">{l.cost ? `${owner.short} · ${l.date}` : l.note}</span>
                 </span>
                 <span className="text-right">
                   <span className="block text-[15px] font-semibold">{rub(l.yourPart)}</span>
@@ -210,6 +212,7 @@ export function Refund() {
       </div>
       <h2 className="mb-2 mt-5 text-[17px] font-semibold">Куда вернуть</h2>
       <Note
+        at="out-right"
         what="По умолчанию возврат на привязанную карту, без паспорта и реквизитов. Реквизиты — только если выбрать «На другой счёт». Паспорт подставляется из профиля."
         finding="Отчёт, тема 1: до формы возврата дошли пятеро, четверо пожаловались на ручной ввод реквизитов при привязанной карте. Рекомендация 9 — если Зетта это допускает (вопросы к правилам 2 и 3)."
       >
