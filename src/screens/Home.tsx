@@ -4,6 +4,7 @@ import { useStore } from '../store'
 import { Icon } from '../ui/Icon'
 import { Note } from '../ui/Note'
 import { AppHeader, StatusBar } from '../ui/Screen'
+import { FirstLoginTip } from './Auth'
 
 const statusStyle: Record<Activity['status'], string> = {
   upcoming: 'bg-zt-mint text-zt-accent',
@@ -77,6 +78,7 @@ export function Home() {
       </div>
 
       <div className="-mt-4 rounded-t-[28px] bg-white px-4 pb-32 pt-5">
+        <FirstLoginTip />
         <div>
           <div className="mb-2 flex items-baseline justify-between">
             <h2 className="text-[20px] font-bold">

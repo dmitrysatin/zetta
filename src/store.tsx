@@ -11,6 +11,8 @@ type Store = {
   booking: BookingDraft
   setBooking: (patch: Partial<BookingDraft>) => void
   resetBooking: () => void
+  firstLogin: boolean
+  setFirstLogin: (v: boolean) => void
 }
 
 export type BookingDraft = {
@@ -51,6 +53,7 @@ export function StoreProvider({ children }: { children: ReactNode }) {
   const [booking, setBookingState] = useState<BookingDraft>(emptyBooking)
   const setBooking = (patch: Partial<BookingDraft>) => setBookingState((b) => ({ ...b, ...patch }))
   const resetBooking = () => setBookingState(emptyBooking)
+  const [firstLogin, setFirstLogin] = useState(false)
   const person = people.find((p) => p.id === personId) ?? people[0]
   const setNotes = (v: boolean) => {
     setNotesState(v)
@@ -60,7 +63,7 @@ export function StoreProvider({ children }: { children: ReactNode }) {
       /* без хранилища пометки просто не запоминаются */
     }
   }
-  return <Ctx.Provider value={{ person, setPersonId, notes, setNotes, activities, addActivity, booking, setBooking, resetBooking }}>{children}</Ctx.Provider>
+  return <Ctx.Provider value={{ person, setPersonId, notes, setNotes, activities, addActivity, booking, setBooking, resetBooking, firstLogin, setFirstLogin }}>{children}</Ctx.Provider>
 }
 
 export function useStore(): Store {

@@ -7,6 +7,7 @@ import { TabBar } from './ui/Screen'
 import { Finances, Franchise, Invoice, Invoices, Refund, RefundDone } from './screens/Finances'
 import { Activities, ActivityDetail } from './screens/Activities'
 import { Policies, Policy, Program } from './screens/Policy'
+import { Login, Pin, Register } from './screens/Auth'
 import { Appeals, GpDone, GpForm, GpList, GpNew } from './screens/Gp'
 import { BookingClinic, BookingComplaints, BookingConfirm, BookingDoctors, BookingDone, BookingSpecialty, BookingWish, Clinics } from './screens/Booking'
 
@@ -159,6 +160,15 @@ function Screens() {
       break
     case '/appeals':
       screen = <Appeals />
+      break
+    case '/login':
+      screen = <Login />
+      break
+    case '/register':
+      screen = <Register />
+      break
+    case '/pin':
+      screen = <Pin next={params.get('next') || '/home'} first={params.get('first') === '1'} />
       break
     case '/wip':
       screen = <Wip title={params.get('t') || 'Раздел'} />
