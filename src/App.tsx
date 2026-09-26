@@ -4,6 +4,9 @@ import { StoreProvider, useStore } from './store'
 import { Home } from './screens/Home'
 import { Insured, Profile, Wip } from './screens/Profile'
 import { TabBar } from './ui/Screen'
+import { Finances, Franchise, Invoice, Invoices, Refund, RefundDone } from './screens/Finances'
+import { Activities, ActivityDetail } from './screens/Activities'
+import { Policies, Policy, Program } from './screens/Policy'
 
 // Экраны с нижней панелью. Остальные — пошаговые сценарии, где панель мешает.
 const tabbed: Record<string, string> = {
@@ -16,6 +19,10 @@ const tabbed: Record<string, string> = {
   '/franchise': 'home',
   '/gp': 'home',
   '/contacts': 'home',
+  '/invoices': 'home',
+  '/invoice': 'home',
+  '/policy': 'home',
+  '/activity': 'home',
   '/clinics': 'clinics',
   '/wip': '',
 }
@@ -77,6 +84,39 @@ function Screens() {
       break
     case '/insured':
       screen = <Insured />
+      break
+    case '/finances':
+      screen = <Finances />
+      break
+    case '/franchise':
+      screen = <Franchise />
+      break
+    case '/invoices':
+      screen = <Invoices />
+      break
+    case '/invoice':
+      screen = <Invoice />
+      break
+    case '/refund':
+      screen = <Refund />
+      break
+    case '/refund-done':
+      screen = <RefundDone />
+      break
+    case '/activities':
+      screen = <Activities />
+      break
+    case '/activity':
+      screen = <ActivityDetail id={params.get('id') || ''} />
+      break
+    case '/policies':
+      screen = <Policies />
+      break
+    case '/policy':
+      screen = <Policy id={params.get('id')} />
+      break
+    case '/program':
+      screen = <Program />
       break
     case '/wip':
       screen = <Wip title={params.get('t') || 'Раздел'} />

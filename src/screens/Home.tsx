@@ -34,7 +34,7 @@ export function ActivityRow({ a }: { a: Activity }) {
 }
 
 const quick = [
-  { label: 'Полис', icon: 'shield', to: '/policies' },
+  { label: 'Полис', icon: 'shield', to: '/policy' },
   { label: 'Программа', icon: 'list', to: '/program' },
   { label: 'Финансы', icon: 'wallet', to: '/finances' },
   { label: 'Записи и заявки', icon: 'calendar', to: '/activities' },
@@ -61,7 +61,7 @@ export function Home() {
         <Note
           className="px-4 pb-6"
           what="Ряд быстрых входов на главной: полис, программа, финансы, записи и заявки. Те же пункты остаются в профиле."
-          finding="Отчёт, тема 2: одни ищут всё в профиле, другие только на главной, поэтому «моё» открывается с обеих сторон. Рекомендация 2."
+          finding="Отчёт, тема 2: одни ищут всё в профиле, другие только на главной, поэтому «моё» открывается с обеих сторон. Рекомендация 2. Полис на главной зависит от интеграции (вопрос к правилам Зетты 4)."
         >
           <div className="grid grid-cols-4 gap-2">
             {quick.map((q) => (
