@@ -1,12 +1,16 @@
 #!/bin/sh
 # Выкладка прототипа на GitHub Pages: исходники в main, сборка в gh-pages.
-# Токен берётся из окружения: GH_TOKEN=... ./deploy.sh
+# Без токена git использует вход, сохранённый в связке ключей macOS.
+# С токеном (GH_TOKEN=... ./deploy.sh) ещё и включает Pages через API.
 set -e
 REPO="${REPO:-dmitrysatin/zetta}"
-: "${GH_TOKEN:?нужен GH_TOKEN}"
 cd "$(dirname "$0")"
 npm run build
-URL="https://x-access-token:${GH_TOKEN}@github.com/${REPO}.git"
+if [ -n "$GH_TOKEN" ]; then
+  URL="https://x-access-token:${GH_TOKEN}@github.com/${REPO}.git"
+else
+  URL="https://github.com/${REPO}.git"
+fi
 git push "$URL" HEAD:main
 TMP=$(mktemp -d)
 cp -R dist/. "$TMP"
@@ -18,6 +22,7 @@ git -c user.name="UsabilityLab" -c user.email="d.satin@usabilitylab.net" commit 
 git push -f "$URL" gh-pages
 cd - >/dev/null
 rm -rf "$TMP"
+[ -z "$GH_TOKEN" ] && { echo "Готово. Pages: Settings → Pages → ветка gh-pages"; exit 0; }
 # Включить Pages из ветки gh-pages (если уже включено — просто вернёт 409)
 curl -s -o /dev/null -w "pages: %{http_code}\n" -X POST -H "Authorization: Bearer ${GH_TOKEN}" \
   -H "Accept: application/vnd.github+json" "https://api.github.com/repos/${REPO}/pages" \
