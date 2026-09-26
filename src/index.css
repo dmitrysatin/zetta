@@ -1,0 +1,63 @@
+@import "tailwindcss";
+
+/* Дизайн-токены прототипа 65apps (assets/hifi-*.css), чтобы стиль совпадал */
+@theme {
+  --font-sans: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --color-zt-accent: #00b7bc;
+  --color-zt-blue: #1554bf;
+  --color-zt-cyan: #009ee0;
+  --color-zt-orange: #ed8221;
+  --color-zt-red: #ff4d4f;
+  --color-zt-green: #1db954;
+  --color-zt-bg: #ffffff;
+  --color-zt-bg2: #f4f4f4;
+  --color-zt-bg3: #f2fbfc;
+  --color-zt-mint: #e7f6f9;
+  --color-zt-sky: #edf6fb;
+  --color-zt-peach: #fef5ef;
+  --color-zt-pink: #fceff4;
+  --color-zt-lavender: #f1f3fe;
+  --color-zt-paleblue: #e9f2ff;
+  --color-zt-text: #18181b;
+  --color-zt-text2: #485259;
+  --color-zt-text3: #8c8c8d;
+  --color-zt-inactive: #cde1e1;
+  --color-zt-stroke: #ececec;
+  --shadow-zt-card: 0 2px 10px 0 #00b7bc1a;
+  --shadow-zt-actions: 0 0 20px 0 rgba(16, 49, 50, 0.1);
+}
+
+:root {
+  --zt-gradient: linear-gradient(87.37deg, #1554bf 16.67%, #0899cf 41.09%, #00cbbf 84.9%);
+}
+
+html,
+body,
+#root {
+  height: 100%;
+  margin: 0;
+}
+
+body {
+  font-family: var(--font-sans);
+  color: var(--color-zt-text);
+  background: #e9edf1;
+  -webkit-font-smoothing: antialiased;
+}
+
+.zt-gradient {
+  background: var(--zt-gradient);
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  scrollbar-width: none;
+}
+
+@layer base {
+  button {
+    cursor: pointer;
+  }
+}
