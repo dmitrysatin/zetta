@@ -161,3 +161,66 @@ export function rub(n: number, short = false): string {
     }) + ' ₽'
   )
 }
+
+export type Clinic = {
+  id: string
+  name: string
+  address: string
+  metro: string
+  kids?: boolean
+  access: 'online' | 'direct' | 'zetta'
+  franchise?: boolean
+}
+
+// access: online — онлайн-запись со слотами; direct — прямой доступ по полису;
+// zetta — запись через оператора Зетты (желаемые даты)
+export const clinics: Clinic[] = [
+  { id: 'chaika', name: 'Клиника «Чайка»', address: 'ул. Лесная, 43', metro: 'Белорусская', access: 'online', franchise: true },
+  { id: 'medsi', name: 'Клиника «Медси»', address: 'ул. 1-я Брестская, 29', metro: 'Белорусская', access: 'online' },
+  { id: 'sm', name: 'СМ-Клиника', address: 'Ленинский пр., 90', metro: 'Новые Черёмушки', access: 'direct' },
+  { id: 'zdorovie', name: 'Клиника «Здоровье+»', address: 'Ленинградский пр., 62', metro: 'Аэропорт', access: 'zetta' },
+  { id: 'mama', name: 'Детская клиника «Мать и дитя»', address: 'ул. Бутырская, 46', metro: 'Савёловская', access: 'online', kids: true },
+]
+
+export const accessLabel: Record<Clinic['access'], string> = {
+  online: 'Онлайн-запись',
+  direct: 'Прямой доступ',
+  zetta: 'Запись через Зетту',
+}
+
+export const specialties = ['Терапевт', 'Хирург', 'Офтальмолог', 'Невролог', 'Кардиолог', 'Педиатр', 'Гастроэнтеролог', 'ЛОР', 'Дерматолог', 'Гинеколог']
+
+const doctorNames = ['Самарина Лариса Евгеньевна', 'Кочевников Анатолий Викторович', 'Иванова Мария Александровна', 'Петров Сергей Николаевич']
+
+export type Doctor = { id: string; name: string; hours: string; rating: string }
+
+export function doctorsFor(specialty: string): Doctor[] {
+  return doctorNames.map((n, i) => ({
+    id: `${specialty}-${i}`,
+    name: n,
+    hours: i === 3 ? 'Приём с 08:30 до 15:30' : 'Приём с 08:30 до 16:00',
+    rating: ['4,9', '4,8', '4,7', '4,9'][i],
+  }))
+}
+
+// 7 дней с понедельника 28 сентября; сегодня в прототипе — 26 сентября
+export const days = Array.from({ length: 7 }, (_, i) => {
+  const d = new Date(2026, 8, 28 + i)
+  return {
+    key: d.toISOString().slice(0, 10),
+    wd: ['Вс', 'Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб'][d.getDay()],
+    day: d.getDate(),
+    label: d.toLocaleDateString('ru-RU', { day: 'numeric', month: 'long' }),
+    weekday: d.toLocaleDateString('ru-RU', { weekday: 'long' }),
+  }
+})
+
+const allSlots = ['08:30', '09:00', '09:30', '10:00', '10:30', '11:00', '12:00', '13:30', '14:00', '15:00']
+
+// Детерминированные свободные слоты: у кого-то пусто, у кого-то много
+export function slotsFor(doctorId: string, dayKey: string): string[] {
+  let h = 0
+  for (const c of doctorId + dayKey) h = (h * 33 + c.charCodeAt(0)) >>> 0
+  if (h % 7 === 0) return []
+  return allSlots.filter((_, i) => ((h >> i) & 3) === 0 || (h >> (i + 3)) % 5 === 0).slice(0, 6)
+}

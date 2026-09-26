@@ -7,6 +7,7 @@ import { TabBar } from './ui/Screen'
 import { Finances, Franchise, Invoice, Invoices, Refund, RefundDone } from './screens/Finances'
 import { Activities, ActivityDetail } from './screens/Activities'
 import { Policies, Policy, Program } from './screens/Policy'
+import { BookingClinic, BookingComplaints, BookingConfirm, BookingDoctors, BookingDone, BookingSpecialty, BookingWish, Clinics } from './screens/Booking'
 
 // Экраны с нижней панелью. Остальные — пошаговые сценарии, где панель мешает.
 const tabbed: Record<string, string> = {
@@ -117,6 +118,30 @@ function Screens() {
       break
     case '/program':
       screen = <Program />
+      break
+    case '/clinics':
+      screen = <Clinics />
+      break
+    case '/booking':
+      screen = <BookingClinic />
+      break
+    case '/booking/specialty':
+      screen = <BookingSpecialty clinicParam={params.get('clinic')} />
+      break
+    case '/booking/doctors':
+      screen = <BookingDoctors />
+      break
+    case '/booking/wish':
+      screen = <BookingWish />
+      break
+    case '/booking/complaints':
+      screen = <BookingComplaints />
+      break
+    case '/booking/confirm':
+      screen = <BookingConfirm />
+      break
+    case '/booking/done':
+      screen = <BookingDone />
       break
     case '/wip':
       screen = <Wip title={params.get('t') || 'Раздел'} />
