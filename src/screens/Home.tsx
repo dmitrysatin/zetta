@@ -1,4 +1,4 @@
-import { activities, type Activity } from '../data'
+import type { Activity } from '../data'
 import { navigate } from '../router'
 import { useStore } from '../store'
 import { Icon } from '../ui/Icon'
@@ -18,7 +18,7 @@ export function StatusPill({ a }: { a: Activity }) {
 }
 
 export function ActivityRow({ a }: { a: Activity }) {
-  const icon = a.kind === 'gp' ? 'doc' : a.kind === 'doctor-home' ? 'home' : 'calendar'
+  const icon = a.kind === 'gp' ? 'doc' : a.kind === 'doctor-home' ? 'home' : a.kind === 'refund' ? 'wallet' : a.kind === 'emergency' ? 'siren' : 'calendar'
   return (
     <button onClick={() => navigate('/activity?id=' + a.id)} className="flex w-full items-center gap-3 px-4 py-3 text-left">
       <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-zt-mint text-zt-accent">
@@ -50,7 +50,7 @@ const services = [
 ]
 
 export function Home() {
-  const { person } = useStore()
+  const { person, activities } = useStore()
   const mine = activities.filter((a) => a.personId === person.id && (a.status === 'upcoming' || a.status === 'review' || a.status === 'ready'))
 
   return (

@@ -1,11 +1,13 @@
 import { createContext, useContext, useState, type ReactNode } from 'react'
-import { people, type Person } from './data'
+import { activities as baseActivities, people, type Activity, type Person } from './data'
 
 type Store = {
   person: Person
   setPersonId: (id: string) => void
   notes: boolean
   setNotes: (v: boolean) => void
+  activities: Activity[]
+  addActivity: (a: Activity) => void
 }
 
 const Ctx = createContext<Store | null>(null)
@@ -23,6 +25,9 @@ function initialNotes(): boolean {
 export function StoreProvider({ children }: { children: ReactNode }) {
   const [personId, setPersonId] = useState('anna')
   const [notes, setNotesState] = useState(initialNotes)
+  const [added, setAdded] = useState<Activity[]>([])
+  const activities = [...added, ...baseActivities]
+  const addActivity = (a: Activity) => setAdded((xs) => [a, ...xs.filter((x) => x.id !== a.id)])
   const person = people.find((p) => p.id === personId) ?? people[0]
   const setNotes = (v: boolean) => {
     setNotesState(v)
@@ -32,7 +37,7 @@ export function StoreProvider({ children }: { children: ReactNode }) {
       /* без хранилища пометки просто не запоминаются */
     }
   }
-  return <Ctx.Provider value={{ person, setPersonId, notes, setNotes }}>{children}</Ctx.Provider>
+  return <Ctx.Provider value={{ person, setPersonId, notes, setNotes, activities, addActivity }}>{children}</Ctx.Provider>
 }
 
 export function useStore(): Store {

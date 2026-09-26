@@ -60,7 +60,7 @@ export type ItemStatus = 'upcoming' | 'review' | 'ready' | 'done' | 'cancelled'
 
 export type Activity = {
   id: string
-  kind: 'visit' | 'gp' | 'doctor-home' | 'emergency'
+  kind: 'visit' | 'gp' | 'doctor-home' | 'emergency' | 'refund'
   title: string
   place: string
   when: string
@@ -104,8 +104,8 @@ export const activities: Activity[] = [
     id: 'a4',
     kind: 'visit',
     title: 'Офтальмолог',
-    place: 'Клиника «Медси», Белорусская',
-    when: '8 июля',
+    place: 'Клиника «Чайка»',
+    when: '7 июля',
     status: 'cancelled',
     statusText: 'Отменено',
     personId: 'anna',
@@ -114,8 +114,8 @@ export const activities: Activity[] = [
     id: 'a5',
     kind: 'visit',
     title: 'Терапевт, Смирнова Е. В.',
-    place: 'Клиника «Медси», Белорусская',
-    when: '8 июля',
+    place: 'Клиника «Чайка»',
+    when: '7 июля',
     status: 'done',
     statusText: 'Состоялся',
     personId: 'anna',
@@ -133,12 +133,13 @@ export type InvoiceLine = {
 export const invoice = {
   number: '100241',
   date: '08.07.2026',
-  clinic: 'Клиника «Медси», Белорусская',
+  clinic: 'Клиника «Чайка»',
+  status: 'К оплате',
   lines: [
-    { service: 'Приём терапевта', date: '08.07.2026', cost: 2250, yourPart: 337.5, note: '15% от 2 250 ₽' },
-    { service: 'Общий анализ крови', date: '08.07.2026', cost: 1000, yourPart: 150, note: '15% от 1 000 ₽' },
-    { service: 'УЗИ брюшной полости', date: '08.07.2026', cost: 4000, yourPart: 600, note: '15% от 4 000 ₽' },
-    { service: 'Приём офтальмолога', date: '08.07.2026', cost: 0, yourPart: 0, note: 'Приём отменён' },
+    { service: 'Приём терапевта', date: '07.07.2026', cost: 2250, yourPart: 337.5, note: '15% от 2 250 ₽' },
+    { service: 'Общий анализ крови', date: '07.07.2026', cost: 1000, yourPart: 150, note: '15% от 1 000 ₽' },
+    { service: 'УЗИ брюшной полости', date: '07.07.2026', cost: 4000, yourPart: 600, note: '15% от 4 000 ₽' },
+    { service: 'Приём офтальмолога', date: '07.07.2026', cost: 0, yourPart: 0, note: 'Приём отменён' },
   ] as InvoiceLine[],
   total: 1087.5,
 }
