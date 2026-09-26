@@ -1,6 +1,6 @@
 import { useEffect } from 'react'
-import { navigate, useRoute } from './router'
-import { StoreProvider, useStore } from './store'
+import { useRoute } from './router'
+import { StoreProvider } from './store'
 import { Home } from './screens/Home'
 import { Insured, Profile, Wip } from './screens/Profile'
 import { TabBar } from './ui/Screen'
@@ -8,6 +8,7 @@ import { Finances, Franchise, Invoice, Invoices, Refund, RefundDone } from './sc
 import { Activities, ActivityDetail } from './screens/Activities'
 import { Policies, Policy, Program } from './screens/Policy'
 import { Login, Pin, Register } from './screens/Auth'
+import { Go, Start } from './screens/Start'
 import { Appeals, GpDone, GpForm, GpList, GpNew } from './screens/Gp'
 import { BookingClinic, BookingComplaints, BookingConfirm, BookingDoctors, BookingDone, BookingSpecialty, BookingWish, Clinics } from './screens/Booking'
 
@@ -31,44 +32,6 @@ const tabbed: Record<string, string> = {
   '/wip': '',
 }
 
-function Start() {
-  const { notes, setNotes } = useStore()
-  const tasks = [
-    { n: 1, t: 'Первый вход', to: '/login' },
-    { n: 2, t: 'Запись к врачу', to: '/booking' },
-    { n: 3, t: 'Профиль и запись ребёнка', to: '/home' },
-    { n: 4, t: 'Гарантийное письмо', to: '/home' },
-    { n: 5, t: 'Франшиза: сколько списали', to: '/home' },
-  ]
-  return (
-    <div className="min-h-full bg-white px-5 pb-10 pt-14">
-      <div className="zt-gradient mb-5 rounded-3xl p-5 text-white">
-        <div className="text-[13px] opacity-85">UsabilityLab · по итогам тестирования 21–25.09</div>
-        <h1 className="mt-1 text-[24px] font-bold leading-tight">MyZetta: прототип с исправленной логикой</h1>
-      </div>
-      <p className="text-[14px] leading-snug text-zt-text2">
-        Визуальный стиль прототипа 65apps сохранён, изменена логика по находкам сводного отчёта. Задания — те же, что на тестировании.
-      </p>
-      <div className="mt-5 divide-y divide-zt-stroke overflow-hidden rounded-2xl shadow-zt-card">
-        {tasks.map((t) => (
-          <button key={t.n} onClick={() => navigate(t.to)} className="flex w-full items-center gap-3 px-4 py-3.5 text-left">
-            <span className="flex h-8 w-8 items-center justify-center rounded-full bg-zt-mint text-[14px] font-bold text-zt-accent">{t.n}</span>
-            <span className="flex-1 text-[15px] font-medium">{t.t}</span>
-          </button>
-        ))}
-      </div>
-      <label className="mt-5 flex items-center justify-between rounded-2xl bg-[#f5f3ff] px-4 py-3.5">
-        <span>
-          <span className="block text-[15px] font-medium">Показывать изменения</span>
-          <span className="block text-[12.5px] text-zt-text2">Фиолетовые значки ✎: что поменяли и почему</span>
-        </span>
-        <input type="checkbox" checked={notes} onChange={(e) => setNotes(e.target.checked)} className="h-5 w-5 accent-[#7c3aed]" />
-      </label>
-      <button onClick={() => navigate('/home')} className="mt-5 h-12 w-full rounded-full bg-zt-accent text-[16px] font-semibold text-white">Открыть главную</button>
-    </div>
-  )
-}
-
 function Screens() {
   const { path, params } = useRoute()
   useEffect(() => {
@@ -79,6 +42,9 @@ function Screens() {
   switch (path) {
     case '/start':
       screen = <Start />
+      break
+    case '/go':
+      screen = <Go task={params.get('task') || ''} notes={params.get('notes')} />
       break
     case '/home':
       screen = <Home />

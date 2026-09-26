@@ -13,6 +13,9 @@ type Store = {
   resetBooking: () => void
   firstLogin: boolean
   setFirstLogin: (v: boolean) => void
+  // Сценарий задания: убрать с главной заявку на гарантийное письмо (задание 4)
+  noGp: boolean
+  startTask: (opts: { noGp?: boolean }) => void
 }
 
 export type BookingDraft = {
@@ -48,12 +51,20 @@ export function StoreProvider({ children }: { children: ReactNode }) {
   const [personId, setPersonId] = useState('anna')
   const [notes, setNotesState] = useState(initialNotes)
   const [added, setAdded] = useState<Activity[]>([])
-  const activities = [...added, ...baseActivities]
+  const [noGp, setNoGp] = useState(false)
+  const activities = [...added, ...baseActivities.filter((a) => !(noGp && a.kind === 'gp'))]
   const addActivity = (a: Activity) => setAdded((xs) => [a, ...xs.filter((x) => x.id !== a.id)])
   const [booking, setBookingState] = useState<BookingDraft>(emptyBooking)
   const setBooking = (patch: Partial<BookingDraft>) => setBookingState((b) => ({ ...b, ...patch }))
   const resetBooking = () => setBookingState(emptyBooking)
   const [firstLogin, setFirstLogin] = useState(false)
+  const startTask = (opts: { noGp?: boolean }) => {
+    setPersonId('anna')
+    setAdded([])
+    setBookingState(emptyBooking)
+    setFirstLogin(false)
+    setNoGp(!!opts.noGp)
+  }
   const person = people.find((p) => p.id === personId) ?? people[0]
   const setNotes = (v: boolean) => {
     setNotesState(v)
@@ -63,7 +74,7 @@ export function StoreProvider({ children }: { children: ReactNode }) {
       /* без хранилища пометки просто не запоминаются */
     }
   }
-  return <Ctx.Provider value={{ person, setPersonId, notes, setNotes, activities, addActivity, booking, setBooking, resetBooking, firstLogin, setFirstLogin }}>{children}</Ctx.Provider>
+  return <Ctx.Provider value={{ person, setPersonId, notes, setNotes, activities, addActivity, booking, setBooking, resetBooking, firstLogin, setFirstLogin, noGp, startTask }}>{children}</Ctx.Provider>
 }
 
 export function useStore(): Store {
