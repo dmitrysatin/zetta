@@ -74,7 +74,7 @@ export function Profile() {
               <Row icon="calendar" title="Мои записи и заявки" onClick={() => navigate('/activities')} />
             </Note>
             <Row icon="doc" title="Гарантийные письма" onClick={() => navigate('/gp')} />
-            <Row icon="chat" title="Мои обращения" onClick={() => navigate('/wip?t=Мои обращения')} />
+            <Row icon="chat" title="Мои обращения" onClick={() => navigate('/appeals')} />
           </Group>
 
           {!isChild && (

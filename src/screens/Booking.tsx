@@ -413,7 +413,7 @@ export function BookingDone() {
         <img src="zt/gp-success.png" alt="" className="w-40" />
         <h2 className="mt-4 text-[20px] font-bold">{a?.status === 'upcoming' ? 'Вы записаны' : 'Заявка отправлена'}</h2>
         <p className="mt-2 max-w-72 text-[14px] text-zt-text2">
-          {a?.title}. {a?.when}. Запись уже в списке «Мои записи и заявки» на главной.
+          {a?.title.replace(/\.$/, '')}. {a?.when}. {a?.status === 'upcoming' ? 'Запись' : 'Заявка'} уже в списке «Мои записи и заявки» на главной.
         </p>
         <Button className="mt-6" onClick={() => navigate('/home', { replace: true })}>На главную</Button>
         <Button variant="ghost" className="mt-1" onClick={() => navigate('/activities', { replace: true })}>Мои записи и заявки</Button>

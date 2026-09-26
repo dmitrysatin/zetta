@@ -7,6 +7,7 @@ import { TabBar } from './ui/Screen'
 import { Finances, Franchise, Invoice, Invoices, Refund, RefundDone } from './screens/Finances'
 import { Activities, ActivityDetail } from './screens/Activities'
 import { Policies, Policy, Program } from './screens/Policy'
+import { Appeals, GpDone, GpForm, GpList, GpNew } from './screens/Gp'
 import { BookingClinic, BookingComplaints, BookingConfirm, BookingDoctors, BookingDone, BookingSpecialty, BookingWish, Clinics } from './screens/Booking'
 
 // Экраны с нижней панелью. Остальные — пошаговые сценарии, где панель мешает.
@@ -19,6 +20,7 @@ const tabbed: Record<string, string> = {
   '/finances': 'home',
   '/franchise': 'home',
   '/gp': 'home',
+  '/appeals': 'home',
   '/contacts': 'home',
   '/invoices': 'home',
   '/invoice': 'home',
@@ -142,6 +144,21 @@ function Screens() {
       break
     case '/booking/done':
       screen = <BookingDone />
+      break
+    case '/gp':
+      screen = <GpList />
+      break
+    case '/gp/new':
+      screen = <GpNew />
+      break
+    case '/gp/form':
+      screen = <GpForm type={params.get('type') || 'service'} />
+      break
+    case '/gp/done':
+      screen = <GpDone />
+      break
+    case '/appeals':
+      screen = <Appeals />
       break
     case '/wip':
       screen = <Wip title={params.get('t') || 'Раздел'} />
